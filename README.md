@@ -1,2 +1,16 @@
-# cdr_schemas
-cdr schemas for integration
+
+
+
+# CDR Schemas
+
+
+
+
+
+
+
+# Build
+
+```
+poetry build -f sdist
+```

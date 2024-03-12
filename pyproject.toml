@@ -1,0 +1,31 @@
+[tool.poetry]
+name = "cdr_schemas"
+version = "0.1.0"
+description = "CDR Schemas"
+authors = []
+readme = "README.md"
+packages = [
+         {include = "cdr_schemas"},
+         {include = "cdr_schemas/**/*.py"}
+]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+pydantic = "^2.6.3"
+
+[tool.poetry.group.dev.dependencies]
+black = "^24.2.0"
+flake8 = "^7.0.0"
+isort = "^5.13.2"
+flake8-print = "^5.0.0"
+autoflake = "^2.3.0"
+ipython = "^8.22.2"
+
+[tool.poetry.scripts]
+format = "dev.script:format"
+lint = "dev.script:lint"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
