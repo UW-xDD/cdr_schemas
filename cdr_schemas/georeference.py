@@ -37,43 +37,43 @@ class GroundControlPoint(BaseModel):
         ...,
         description="""
             Your internal generated gcp id that helps connect to a 
-            raster projection if one is created
+            raster projection if one is created.
         """,
     )
     map_geom: Geom_Point = Field(
         ...,
         description="""
-            Point geometry, world coordinates, [longitude, latitude]
+            Point geometry, in world coordinates. [longitude, latitude].
         """,
     )
     px_geom: Pixel_Point = Field(
         ...,
         description="""
-            Point geometry, pixel coordinates, [columns from left, row from bottom]
+            Point geometry, in pixel coordinates. [columns from left, row from bottom].
         """,
     )
     confidence: Optional[float] = Field(
         ...,
         description="""
-            Confidence associated with this extraction
+            Confidence associated with this extraction.
         """,
     )
     model: str = Field(
         ...,
         description="""
-            Name of the model used.
+            The name of the model used.
         """,
     )
     model_version: str = Field(
         ...,
         description="""
-            Version of the model.
+            The version of the model.
         """,
     )
     crs: Optional[str] = Field(
         ...,
         description="""
-            Coordinate reference system.
+            Coordinate reference system. i.e. "EPSG:4267"
         """,
     )
 
@@ -88,7 +88,7 @@ class ProjectionResult(BaseModel):
     crs: str = Field(
         ...,
         description="""
-            Coordinate reference system used for projection. i.e. EPSG:32612
+            Coordinate reference system used for projection. i.e. "EPSG:32612"
         """,
     )
     gcp_ids: List[str] = Field(
@@ -100,33 +100,22 @@ class ProjectionResult(BaseModel):
     file_name: str = Field(
         ...,
         description="""
-            Name of file uploaded for this projection
+            Name of file uploaded for this projection.
         """,
     )
+    
 
 
-class GeoreferenceResults(BaseModel):
+class GeoreferenceResult(BaseModel):
     """
-    Georeference Results.
+    Georeference Result.
     """
 
-    map_id: str = Field(
-        ...,
-        description="""
-            Internal gcp id. This can be any unique string. 
-        """,
-    )
     likely_CRSs: Optional[List[str]] = Field(
         ...,
         description="""
             List of potential Coordinate Reference System specifically 
-            Projection Coordinate System for the map. ie ["EPSG:32612", "EPSG:32613
-        """,
-    )
-    gcps: Optional[List[GroundControlPoint]] = Field(
-        ...,
-        description="""
-            List of all gcps extracted 
+            Projection Coordinate System for the map. ie ["EPSG:32612", "EPSG:32613"]
         """,
     )
     projections: Optional[List[ProjectionResult]] = Field(
@@ -136,15 +125,41 @@ class GeoreferenceResults(BaseModel):
             and gcp ids used in the transform
         """,
     )
+
+
+
+class GeoreferenceResults(BaseModel):
+    """
+    Georeference Results.
+    """
+
+    cog_id: str = Field(
+        ...,
+        description="""
+            Cog id.
+        """,
+    )
+    georeference_results: Optional[List[GeoreferenceResult]] = Field(
+        ...,
+        description = """
+            A list of georeferencing results, which include projections, gcps, and crs info. 
+        """
+    ) 
+    gcps: Optional[List[GroundControlPoint]] = Field(
+        ...,
+        description="""
+            List of all gcps extracted for the cog image.
+        """,
+    )
     system: str = Field(
         ...,
         description="""
-            Name of the system used
+            The name of the system used.
         """,
     )
     system_version: str = Field(
         ...,
         description="""
-            Version of the system.
+            The version of the system used.
         """,
     )
