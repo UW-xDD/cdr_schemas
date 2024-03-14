@@ -103,7 +103,6 @@ class ProjectionResult(BaseModel):
             Name of file uploaded for this projection.
         """,
     )
-    
 
 
 class GeoreferenceResult(BaseModel):

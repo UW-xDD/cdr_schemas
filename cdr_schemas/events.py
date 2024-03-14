@@ -10,5 +10,5 @@ class Event(BaseModel):
 
 
 class MapEventPayload(BaseModel):
-    map_id: str
+    cog_id: str
     cog_url: str
