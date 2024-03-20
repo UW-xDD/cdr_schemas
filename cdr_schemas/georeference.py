@@ -4,8 +4,9 @@ from pydantic import BaseModel, Field, ConfigDict
 from enum import Enum
 
 
-class PointType(str, Enum):
+class GeomType(str, Enum):
     Point = "Point"
+    Polygon = "Polygon"
 
 
 class Geom_Point(BaseModel):
@@ -15,7 +16,7 @@ class Geom_Point(BaseModel):
     """
 
     coordinates: List[Optional[Union[float, int]]]
-    type: PointType = PointType.Point
+    type: GeomType = GeomType.Point
 
 
 class Pixel_Point(BaseModel):
@@ -25,7 +26,12 @@ class Pixel_Point(BaseModel):
     """
 
     coordinates: List[Union[float, int]]
-    type: PointType = PointType.Point
+    type: GeomType = GeomType.Point
+
+
+class Map_Area(BaseModel):
+    coordinates: List[List[Union[float, int]]]
+    type: GeomType = GeomType.Polygon
 
 
 class GroundControlPoint(BaseModel):
@@ -103,6 +109,8 @@ class ProjectionResult(BaseModel):
             Name of file uploaded for this projection.
         """,
     )
+    
+
 
 
 class GeoreferenceResult(BaseModel):
@@ -117,6 +125,15 @@ class GeoreferenceResult(BaseModel):
             Projection Coordinate System for the map. ie ["EPSG:32612", "EPSG:32613"]
         """,
     )
+    map_area: Optional[Map_Area] = Field(
+        ...,
+        description="""
+            Polygon bordering the map area for this georeference result. There can 
+            be many map areas on a cog so this would be the pixel polygon of one of those
+            areas that has been found. 
+            The optional projections attached to this GeoreferenceResult should be referring to this area.
+        """
+    )
     projections: Optional[List[ProjectionResult]] = Field(
         ...,
         description="""
@@ -124,7 +141,6 @@ class GeoreferenceResult(BaseModel):
             and gcp ids used in the transform
         """,
     )
-
 
 
 class GeoreferenceResults(BaseModel):
