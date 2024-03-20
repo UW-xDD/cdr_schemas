@@ -30,7 +30,7 @@ class Pixel_Point(BaseModel):
 
 
 class Map_Area(BaseModel):
-    coordinates: List[List[Union[float, int]]]
+    coordinates: List[List[List[Union[float, int]]]]
     type: GeomType = GeomType.Polygon
 
 
