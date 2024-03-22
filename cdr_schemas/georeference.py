@@ -1,12 +1,8 @@
 from typing import List, Union, Optional
 
 from pydantic import BaseModel, Field, ConfigDict
-from enum import Enum
-
-
-class GeomType(str, Enum):
-    Point = "Point"
-    Polygon = "Polygon"
+from common import GeomType
+from cdr_schemas.area_extraction import Area_Extraction
 
 
 class Geom_Point(BaseModel):
@@ -27,11 +23,6 @@ class Pixel_Point(BaseModel):
 
     coordinates: List[Union[float, int]]
     type: GeomType = GeomType.Point
-
-
-class Map_Area(BaseModel):
-    coordinates: List[List[List[Union[float, int]]]]
-    type: GeomType = GeomType.Polygon
 
 
 class GroundControlPoint(BaseModel):
@@ -109,8 +100,6 @@ class ProjectionResult(BaseModel):
             Name of file uploaded for this projection.
         """,
     )
-    
-
 
 
 class GeoreferenceResult(BaseModel):
@@ -125,14 +114,14 @@ class GeoreferenceResult(BaseModel):
             Projection Coordinate System for the map. ie ["EPSG:32612", "EPSG:32613"]
         """,
     )
-    map_area: Optional[Map_Area] = Field(
+    map_area: Optional[Area_Extraction] = Field(
         ...,
         description="""
             Polygon bordering the map area for this georeference result. There can 
             be many map areas on a cog so this would be the pixel polygon of one of those
             areas that has been found. 
             The optional projections attached to this GeoreferenceResult should be referring to this area.
-        """
+        """,
     )
     projections: Optional[List[ProjectionResult]] = Field(
         ...,
@@ -156,10 +145,10 @@ class GeoreferenceResults(BaseModel):
     )
     georeference_results: Optional[List[GeoreferenceResult]] = Field(
         ...,
-        description = """
+        description="""
             A list of georeferencing results, which include projections, gcps, and crs info. 
-        """
-    ) 
+        """,
+    )
     gcps: Optional[List[GroundControlPoint]] = Field(
         ...,
         description="""
