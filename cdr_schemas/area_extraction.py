@@ -11,10 +11,14 @@ class AreaType(str, Enum):
     CrossSection = "cross_section"
     OCR = "ocr"
     Polygon_Legend_Area = "polygon_legend_area"
-    line_point_Legend_Area = "line_point_legend_area"
+    Line_Point_Legend_Area = "line_point_legend_area"
 
 
 class Area_Extraction(BaseModel):
+    """
+    Area extraction of a cog.
+    """
+
     type: GeomType = GeomType.Polygon
     coordinates: List[List[List[Union[float, int]]]]
     bbox: Optional[List[Union[float, int]]] = Field(
