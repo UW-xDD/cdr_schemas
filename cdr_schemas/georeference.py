@@ -7,21 +7,41 @@ from cdr_schemas.area_extraction import Area_Extraction
 
 class Geom_Point(BaseModel):
     """
-    Geometry Point:
-    Point geometry in world coordinates (longitude, latitude).
+    Geometry Point
     """
 
-    coordinates: List[Optional[Union[float, int]]]
+    latitude: Optional[Union[float, int]] = Field(
+        ...,
+        description="""
+            The latitude value for the world coordinate.
+        """,
+    )
+    longitude: Optional[Union[float, int]] = Field(
+        ...,
+        description="""
+            The longitude value for the world coordinate.
+        """,
+    )
     type: GeomType = GeomType.Point
 
 
 class Pixel_Point(BaseModel):
     """
-    Pixel point.
-    Point geometry in pixel coordinates (columns from left, row from bottom).
+    Pixel point
     """
 
-    coordinates: List[Union[float, int]]
+    rows_from_top: Union[float, int] = Field(
+        ...,
+        description="""
+            The number of rows from the top, equivalent to the usual y value in images.
+        """,
+    )
+    columns_from_left: Union[float, int] = Field(
+        ...,
+        description="""
+            The number of columns from the left, equivalent to the usual x value in images.
+        """,
+    )
     type: GeomType = GeomType.Point
 
 
