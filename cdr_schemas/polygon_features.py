@@ -44,7 +44,7 @@ class PolygonFeatureCollection(BaseModel):
     All polygon features for legend item.
     """
 
-    type: GeomType.FeatureCollection
+    type: GeoJsonType.FeatureCollection
     features: Optional[List[PolygonFeature]]
 
 
