@@ -2,7 +2,7 @@ from typing import List, Union, Optional
 from enum import Enum
 
 from pydantic import BaseModel, Field, ConfigDict
-from common import GeomType
+from cdr_schemas.common import GeomType
 
 
 class AreaType(str, Enum):
@@ -25,7 +25,12 @@ class Area_Extraction(BaseModel):
         description="""The extacted bounding box of the area. 
         Column value from left, row value from bottom."""
     )
-    category: str[AreaType]
+    category: AreaType = Field(
+        ...,
+        description="""
+            The type of area extraction.
+        """,
+    )
     text: Optional[str] = Field(
         ...,
         description="""

@@ -1,7 +1,7 @@
 from typing import List, Union, Optional
 
 from pydantic import BaseModel, Field, ConfigDict
-from common import GeomType
+from cdr_schemas.common import GeomType
 from cdr_schemas.area_extraction import Area_Extraction
 
 
