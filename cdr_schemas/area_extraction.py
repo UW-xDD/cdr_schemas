@@ -12,6 +12,9 @@ class AreaType(str, Enum):
     OCR = "ocr"
     Polygon_Legend_Area = "polygon_legend_area"
     Line_Point_Legend_Area = "line_point_legend_area"
+    Line_Legend_Area = "line_legend_area"
+    Point_Legend_Area = "point_legend_area"
+    Correlation_Diagram = "correlation_diagram"
 
 
 class Area_Extraction(BaseModel):
@@ -44,4 +47,5 @@ class Area_Extraction(BaseModel):
     model_version: Optional[str] = Field(
         description="model version used for extraction"
     )
+
     model_config = ConfigDict(protected_namespaces=())

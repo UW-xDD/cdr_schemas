@@ -60,13 +60,13 @@ class GroundControlPoint(BaseModel):
     map_geom: Geom_Point = Field(
         ...,
         description="""
-            Point geometry, in world coordinates. [longitude, latitude].
+            Point geometry, in world coordinates. 
         """,
     )
     px_geom: Pixel_Point = Field(
         ...,
         description="""
-            Point geometry, in pixel coordinates. [columns from left, row from bottom].
+            Point geometry, in pixel coordinates.
         """,
     )
     confidence: Optional[float] = Field(
