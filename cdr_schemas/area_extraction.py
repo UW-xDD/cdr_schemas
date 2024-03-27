@@ -1,7 +1,8 @@
-from typing import List, Union, Optional
 from enum import Enum
+from typing import List, Optional, Union
 
-from pydantic import BaseModel, Field, ConfigDict
+from pydantic import BaseModel, ConfigDict, Field
+
 from cdr_schemas.common import GeomType
 
 
@@ -25,7 +26,7 @@ class Area_Extraction(BaseModel):
     type: GeomType = GeomType.Polygon
     coordinates: List[List[List[Union[float, int]]]]
     bbox: Optional[List[Union[float, int]]] = Field(
-        description="""The extacted bounding box of the area. 
+        description="""The extacted bounding box of the area.
         Column value from left, row value from bottom."""
     )
     category: AreaType = Field(

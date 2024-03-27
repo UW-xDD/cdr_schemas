@@ -1,6 +1,7 @@
-from typing import List, Union, Optional
 from enum import Enum
-from pydantic import BaseModel, Field, ConfigDict
+from typing import List, Optional
+
+from pydantic import BaseModel, ConfigDict, Field
 
 
 class MapShapeTypes(str, Enum):
@@ -58,7 +59,7 @@ class MapMetaData(BaseModel):
     quadrangle_name: Optional[str] = Field(
         ...,
         description="""
-            If map is based on a quadrangle location we can save the name here. 
+            If map is based on a quadrangle location we can save the name here.
         """,
     )
     map_shape: Optional[MapShapeTypes] = Field(

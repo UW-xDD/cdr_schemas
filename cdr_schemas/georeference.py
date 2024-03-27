@@ -1,8 +1,9 @@
-from typing import List, Union, Optional
+from typing import List, Optional, Union
 
-from pydantic import BaseModel, Field, ConfigDict
-from cdr_schemas.common import GeomType
+from pydantic import BaseModel, ConfigDict, Field
+
 from cdr_schemas.area_extraction import Area_Extraction
+from cdr_schemas.common import GeomType
 
 
 class Geom_Point(BaseModel):
@@ -53,14 +54,14 @@ class GroundControlPoint(BaseModel):
     gcp_id: str = Field(
         ...,
         description="""
-            Your internal generated gcp id that helps connect to a 
+            Your internal generated gcp id that helps connect to a
             raster projection if one is created.
         """,
     )
     map_geom: Geom_Point = Field(
         ...,
         description="""
-            Point geometry, in world coordinates. 
+            Point geometry, in world coordinates.
         """,
     )
     px_geom: Pixel_Point = Field(
@@ -130,23 +131,23 @@ class GeoreferenceResult(BaseModel):
     likely_CRSs: Optional[List[str]] = Field(
         ...,
         description="""
-            List of potential Coordinate Reference System specifically 
+            List of potential Coordinate Reference System specifically
             Projection Coordinate System for the map. ie ["EPSG:32612", "EPSG:32613"]
         """,
     )
     map_area: Optional[Area_Extraction] = Field(
         ...,
         description="""
-            Polygon bordering the map area for this georeference result. There can 
+            Polygon bordering the map area for this georeference result. There can
             be many map areas on a cog so this would be the pixel polygon of one of those
-            areas that has been found. 
+            areas that has been found.
             The optional projections attached to this GeoreferenceResult should be referring to this area.
         """,
     )
     projections: Optional[List[ProjectionResult]] = Field(
         ...,
         description="""
-            For each projection raster produced return crs 
+            For each projection raster produced return crs
             and gcp ids used in the transform
         """,
     )
@@ -166,7 +167,7 @@ class GeoreferenceResults(BaseModel):
     georeference_results: Optional[List[GeoreferenceResult]] = Field(
         ...,
         description="""
-            A list of georeferencing results, which include projections, gcps, and crs info. 
+            A list of georeferencing results, which include projections, gcps, and crs info.
         """,
     )
     gcps: Optional[List[GroundControlPoint]] = Field(

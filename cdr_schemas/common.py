@@ -1,6 +1,4 @@
 from enum import Enum
-from typing import Type
-from pydantic import BaseModel
 
 
 class GeomType(str, Enum):

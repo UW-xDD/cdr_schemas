@@ -1,0 +1,13 @@
+
+## Schemas
+{% for diag in diagrams %}
+
+### {{ diag.title|title }}
+
+<details open>
+    <summary>{{ diag.title|lower }}</summary>
+
+{{ diag.body }}
+
+</details>
+{%- endfor %}

@@ -1,10 +1,11 @@
-from pydantic import BaseModel, Field
 from typing import List, Optional
 
+from pydantic import BaseModel, Field
+
+from cdr_schemas.area_extraction import Area_Extraction
+from cdr_schemas.line_features import LineLegendAndFeaturesResult
 from cdr_schemas.point_features import PointLegendAndFeaturesResult
 from cdr_schemas.polygon_features import PolygonLegendAndFeauturesResult
-from cdr_schemas.line_features import LineLegendAndFeaturesResult
-from cdr_schemas.area_extraction import Area_Extraction
 
 
 class FeatureResults(BaseModel):
@@ -33,7 +34,7 @@ class FeatureResults(BaseModel):
     polygon_feature_results: Optional[List[PolygonLegendAndFeauturesResult]] = Field(
         ...,
         description="""
-            A list of legend extractions with associated polygon feature results. 
+            A list of legend extractions with associated polygon feature results.
         """,
     )
     map_area_extractions: Optional[List[Area_Extraction]]

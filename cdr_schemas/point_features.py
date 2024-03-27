@@ -1,6 +1,8 @@
-from typing import List, Union, Any, Optional
+from typing import List, Literal, Optional, Union
+
 from pydantic import BaseModel, Field
-from cdr_schemas.common import GeomType, GeoJsonType
+
+from cdr_schemas.common import GeoJsonType, GeomType
 
 
 class Point(BaseModel):
@@ -26,7 +28,7 @@ class PointProperties(BaseModel):
         description="The prediction probability from the ML model"
     )
     bbox: Optional[List[Union[float, int]]] = Field(
-        description="""The extacted bounding box of the point item. 
+        description="""The extacted bounding box of the point item.
         Column value from left, row value from bottom."""
     )
     dip: Optional[int]
@@ -38,7 +40,7 @@ class PointFeature(BaseModel):
     Point feature.
     """
 
-    type: GeoJsonType.Feature
+    type: Literal[GeoJsonType.Feature] = GeoJsonType.Feature
     geometry: Point
     properties: PointProperties
 
@@ -48,7 +50,7 @@ class PointFeatureCollection(BaseModel):
     All point features for legend item.
     """
 
-    type: GeoJsonType.FeatureCollection
+    type: Literal[GeoJsonType.FeatureCollection] = GeoJsonType.FeatureCollection
     features: List[PointFeature]
 
 

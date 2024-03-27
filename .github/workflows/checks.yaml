@@ -1,0 +1,27 @@
+name: PR Checks
+
+on:
+  pull_request:
+
+jobs:
+
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - uses: actions/checkout@v4
+
+      - name: Install Poetry
+        run: curl -sSL https://install.python-poetry.org | python -
+
+      - name: Run Poetry Install
+        run: poetry install
+
+      - name: Run Type Checks
+        run: poetry run types
+
+      - name: Run Lint Checks
+        run: poetry run lint

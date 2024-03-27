@@ -1,7 +1,9 @@
-from typing import List, Optional, Union
-from pydantic import BaseModel, Field, ConfigDict
-from cdr_schemas.common import GeomType, GeoJsonType
 from enum import Enum
+from typing import List, Literal, Optional, Union
+
+from pydantic import BaseModel, ConfigDict, Field
+
+from cdr_schemas.common import GeoJsonType, GeomType
 
 
 class DashType(str, Enum):
@@ -51,7 +53,7 @@ class LineFeatureCollection(BaseModel):
     All line features for legend item.
     """
 
-    type: GeoJsonType.FeatureCollection
+    type: Literal[GeoJsonType.FeatureCollection] = GeoJsonType.FeatureCollection
     features: Optional[List[LineFeature]]
 
 
@@ -68,7 +70,7 @@ class LineLegendAndFeaturesResult(BaseModel):
     description: Optional[str]
     symbol: Optional[str]
     legend_bbox: Optional[List[Union[float, int]]] = Field(
-        description="""The extacted bounding box of the legend item. 
+        description="""The extacted bounding box of the legend item.
         Column value from left, row value from bottom."""
     )
     line_features: Optional[LineFeatureCollection]
