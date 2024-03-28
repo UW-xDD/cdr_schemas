@@ -1,4 +1,5 @@
-from typing import Any, Optional
+from datetime import datetime
+from typing import Optional
 from uuid import UUID
 
 from pydantic import BaseModel, Field
@@ -27,8 +28,8 @@ class Document(BaseModel):
     page_height: Optional[int] = Field(
         None, description="Height of a page in the document"
     )
-    ingest_date: Optional[Any] = Field(None, description="Article ingest date")
-    ingest_batch: Optional[Any] = Field(None, description="Article ingest batch")
+    ingest_date: Optional[datetime] = Field(None, description="Article ingest date")
+    ingest_batch: Optional[str] = Field(None, description="Article ingest batch name")
 
     xdd_link: Optional[str] = Field(None, description="xdd api link to the article")
     doi_link: Optional[str] = Field(None, description="doi.org link to the article")
