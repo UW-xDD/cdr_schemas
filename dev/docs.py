@@ -53,6 +53,7 @@ def run():
         Module(title="point feature", ref=cdr_schemas.features.point_features),
         Module(title="line feature", ref=cdr_schemas.features.line_features),
         Module(title="polygon feature", ref=cdr_schemas.features.polygon_features),
+        Module(title="cog metadata", ref=cdr_schemas.metadata),
     ]
 
     for m in modules:

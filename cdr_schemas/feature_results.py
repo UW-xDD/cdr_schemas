@@ -6,6 +6,7 @@ from cdr_schemas.area_extraction import Area_Extraction
 from cdr_schemas.features.line_features import LineLegendAndFeaturesResult
 from cdr_schemas.features.point_features import PointLegendAndFeaturesResult
 from cdr_schemas.features.polygon_features import PolygonLegendAndFeauturesResult
+from cdr_schemas.metadata import CogMetaData
 
 
 class FeatureResults(BaseModel):
@@ -37,7 +38,8 @@ class FeatureResults(BaseModel):
             A list of legend extractions with associated polygon feature results.
         """,
     )
-    map_area_extractions: Optional[List[Area_Extraction]]
+    cog_area_extractions: Optional[List[Area_Extraction]]
+    cog_metadata_extractions: Optional[List[CogMetaData]]
     system: str = Field(
         ...,
         description="""
