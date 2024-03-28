@@ -1,6 +1,6 @@
-from typing import List, Literal, Optional, Union
+from typing import List, Optional, Union
 
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, ConfigDict, Field
 
 from cdr_schemas.common import GeoJsonType, GeomType
 
@@ -11,7 +11,7 @@ class Point(BaseModel):
     """
 
     coordinates: List[Union[float, int]]
-    type: str = Field(default=GeomType.Point)
+    type: GeomType = GeomType.Point
 
 
 class PointProperties(BaseModel):
@@ -19,7 +19,6 @@ class PointProperties(BaseModel):
     Properties of the Point.
     """
 
-    id: str = Field(description="your internal id")
     model: Optional[str] = Field(description="model name used for extraction")
     model_version: Optional[str] = Field(
         description="model version used for extraction"
@@ -34,13 +33,19 @@ class PointProperties(BaseModel):
     dip: Optional[int]
     dip_direction: Optional[int]
 
+    model_config = ConfigDict(protected_namespaces=())
+
 
 class PointFeature(BaseModel):
     """
     Point feature.
     """
 
-    type: Literal[GeoJsonType.Feature] = GeoJsonType.Feature
+    type: GeoJsonType = GeoJsonType.Feature
+    id: str = Field(
+        description="""Each point geometry has a unique id.
+                    The ids are used to link the point geometries is px-coord and geo-coord."""
+    )
     geometry: Point
     properties: PointProperties
 
@@ -50,7 +55,7 @@ class PointFeatureCollection(BaseModel):
     All point features for legend item.
     """
 
-    type: Literal[GeoJsonType.FeatureCollection] = GeoJsonType.FeatureCollection
+    type: GeoJsonType = GeoJsonType.FeatureCollection
     features: List[PointFeature]
 
 
@@ -60,6 +65,12 @@ class PointLegendAndFeaturesResult(BaseModel):
     """
 
     id: str = Field(description="your internal id")
+    crs: str = Field(description="values={CRITICALMAAS:pixel, EPSG:*}")
+    cdr_projection_id: Optional[str] = Field(
+        description="""
+                        A cdr projection id used to georeference the features
+                    """
+    )
     name: Optional[str] = Field(description="name of legend item")
     description: Optional[str]
     legend_bbox: Optional[List[Union[float, int]]] = Field(

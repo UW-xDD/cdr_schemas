@@ -1,4 +1,4 @@
-from typing import List, Literal, Optional, Union
+from typing import List, Optional, Union
 
 from pydantic import BaseModel, ConfigDict, Field
 
@@ -11,7 +11,7 @@ class Polygon(BaseModel):
     """
 
     coordinates: List[List[List[Union[float, int]]]]
-    type: str = Field(default=GeomType.Polygon)
+    type: GeomType = GeomType.Polygon
 
 
 class PolygonProperty(BaseModel):
@@ -19,7 +19,6 @@ class PolygonProperty(BaseModel):
     Properties of the polygon.
     """
 
-    id: str = Field(description="your internal id")
     model: Optional[str] = Field(description="model name used for extraction")
     model_version: Optional[str] = Field(
         description="model version used for extraction"
@@ -36,7 +35,11 @@ class PolygonFeature(BaseModel):
     Polygon feature.
     """
 
-    type: str = GeoJsonType.Feature
+    type: GeoJsonType = GeoJsonType.Feature
+    id: str = Field(
+        description="""Each polygon geometry has a unique id.
+                The ids are used to link the polygon geometries is px-coord and geo-coord."""
+    )
     geometry: Polygon
     properties: PolygonProperty
 
@@ -46,7 +49,7 @@ class PolygonFeatureCollection(BaseModel):
     All polygon features for legend item.
     """
 
-    type: Literal[GeoJsonType.FeatureCollection] = GeoJsonType.FeatureCollection
+    type: GeoJsonType = GeoJsonType.FeatureCollection
     features: Optional[List[PolygonFeature]]
 
 
@@ -58,7 +61,6 @@ class MapUnit(BaseModel):
     age_text: Optional[str]
     b_age: Optional[float]
     b_interval: Optional[str]
-    description: Optional[str]
     lithology: Optional[str]
     name: Optional[str]
     t_age: Optional[float]
@@ -72,6 +74,12 @@ class PolygonLegendAndFeauturesResult(BaseModel):
     """
 
     id: str = Field(description="your internal id")
+    crs: str = Field(description="values={CRITICALMAAS:pixel, EPSG:*}")
+    cdr_projection_id: Optional[str] = Field(
+        description="""
+                        A cdr projection id used to georeference the features
+                    """
+    )
     map_unit: Optional[MapUnit]
     abbreviation: Optional[str]
     legend_bbox: Optional[List[Union[float, int]]] = Field(

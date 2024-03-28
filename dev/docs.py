@@ -6,6 +6,10 @@ from jinja2 import Template
 from pydantic_mermaid import MermaidGenerator
 
 import cdr_schemas.events
+import cdr_schemas.feature_results
+import cdr_schemas.features.line_features
+import cdr_schemas.features.point_features
+import cdr_schemas.features.polygon_features
 import cdr_schemas.georeference
 import cdr_schemas.metadata
 
@@ -45,6 +49,10 @@ def run():
     modules = [
         Module(title="georeference", ref=cdr_schemas.georeference),
         Module(title="metadata", ref=cdr_schemas.metadata),
+        Module(title="feature results", ref=cdr_schemas.feature_results),
+        Module(title="point feature", ref=cdr_schemas.features.point_features),
+        Module(title="line feature", ref=cdr_schemas.features.line_features),
+        Module(title="polygon feature", ref=cdr_schemas.features.polygon_features),
     ]
 
     for m in modules:
