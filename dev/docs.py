@@ -6,6 +6,7 @@ from jinja2 import Template
 from pydantic_mermaid import MermaidGenerator
 
 import cdr_schemas.document
+import cdr_schemas.document_extraction
 import cdr_schemas.events
 import cdr_schemas.feature_results
 import cdr_schemas.features.line_features
@@ -56,6 +57,7 @@ def run():
         Module(title="polygon feature", ref=cdr_schemas.features.polygon_features),
         Module(title="cog metadata", ref=cdr_schemas.metadata),
         Module(title="document", ref=cdr_schemas.document),
+        Module(title="document_extraction", ref=cdr_schemas.document_extraction),
     ]
 
     for m in modules:
