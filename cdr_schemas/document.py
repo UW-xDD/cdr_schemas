@@ -15,9 +15,6 @@ class Document(BaseModel):
         description="Whether the full content of the PDF can be downloaded without authorization",
     )
 
-    xdd_id: Optional[str] = Field(
-        None, description="The XDD Canonical ID of the document, if present"
-    )
     doi: Optional[str] = Field(
         None, description="The digital object identifier of the document, if present"
     )
@@ -31,5 +28,4 @@ class Document(BaseModel):
     ingest_date: Optional[datetime] = Field(None, description="Article ingest date")
     ingest_batch: Optional[str] = Field(None, description="Article ingest batch name")
 
-    xdd_link: Optional[str] = Field(None, description="xdd api link to the article")
     doi_link: Optional[str] = Field(None, description="doi.org link to the article")
